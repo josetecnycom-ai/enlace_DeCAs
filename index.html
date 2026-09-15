@@ -15,7 +15,7 @@
 
   <div style="background: #ffffff; padding: 40px 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); border: 1px solid #e1e6eb; max-width: 420px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: auto;">
     
-    <!-- LOGO TECNOFLOTAS CON TAMAÑO CONTROLADO -->
+    <!-- LOGO TECNOFLOTAS -->
     <div style="width: 100%; max-width: 180px; margin: 0 auto 20px auto; text-align: center;">
       <svg viewBox="0 0 200 65" width="180" height="58" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" xmlns="http://www.w3.org/2000/svg">
         <circle cx="100" cy="22" r="18" fill="none" stroke="#0B3B82" stroke-width="2.5"/>
@@ -26,13 +26,13 @@
       </svg>
     </div>
 
-    <!-- TITULO Y TEXTOS CENTRADOS -->
+    <!-- TITULO Y TEXTO -->
     <h2 style="color: #0b3b82; font-size: 20px; font-weight: 700; margin: 0 0 10px 0; text-align: center; width: 100%;">Acceso al Portal DECAS</h2>
     
-    <p style="color: #516173; font-size: 14px; line-height: 1.5; margin: 0 0 20px 0; text-align: center; width: 100%;">Conectando de forma segura. Se abrirá una nueva ventana en unos segundos...</p>
+    <p id="statusText" style="color: #516173; font-size: 14px; line-height: 1.5; margin: 0 0 20px 0; text-align: center; width: 100%;">Conectando de forma segura. Se abrirá una nueva ventana en unos segundos...</p>
 
     <!-- CARGADOR ANIMADO -->
-    <div style="width: 36px; height: 36px; border: 4px solid #e2e8f0; border-top: 4px solid #0b3b82; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 24px auto;"></div>
+    <div id="spinner" style="width: 36px; height: 36px; border: 4px solid #e2e8f0; border-top: 4px solid #0b3b82; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 24px auto;"></div>
 
     <!-- BOTÓN MANUAL -->
     <a href="https://dcdt.davinchi.es/Account/Login" target="_blank" rel="noopener noreferrer" id="directLink" style="display: inline-block; background-color: #0b3b82; color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 14px; font-weight: 600; border-radius: 6px; box-shadow: 0 4px 10px rgba(11, 59, 130, 0.2); text-align: center; margin: 0 auto;">
@@ -49,6 +49,18 @@
 
     function openPortal() {
       window.open(TARGET_URL, '_blank', 'noopener,noreferrer');
+      
+      // Oculta el círculo giratorio tras 2.5 segundos y cambia el mensaje
+      setTimeout(() => {
+        const spinner = document.getElementById('spinner');
+        if (spinner) {
+          spinner.style.display = 'none';
+        }
+        const statusText = document.getElementById('statusText');
+        if (statusText) {
+          statusText.textContent = 'Si no se ha abierto la pestaña automáticamente, utiliza el siguiente botón:';
+        }
+      }, 2500);
     }
 
     geotab.addin.portalDecas = function () {
