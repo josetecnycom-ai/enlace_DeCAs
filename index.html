@@ -10,117 +10,122 @@
       margin: 0;
       padding: 0;
     }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: #f8fafc;
+    html, body {
+      width: 100%;
+      height: 100vh;
+      background-color: #f4f6f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      color: #1e293b;
+      overflow: hidden;
     }
-    .card {
+    .card-container {
       background: #ffffff;
-      padding: 2.5rem 2rem;
+      padding: 40px 32px;
       border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e6eb;
       text-align: center;
-      max-width: 420px;
+      max-width: 440px;
       width: 90%;
-      border: 1px solid #e2e8f0;
     }
-    .spinner {
-      width: 44px;
-      height: 44px;
+    .logo-container {
+      margin-bottom: 20px;
+    }
+    .logo-container svg {
+      width: 180px;
+      height: auto;
+    }
+    .spinner-loader {
+      width: 40px;
+      height: 40px;
       border: 4px solid #e2e8f0;
-      border-top: 4px solid #2563eb;
+      border-top: 4px solid #0b3b82;
       border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-      margin: 0 auto 1.5rem auto;
+      animation: spin 0.8s linear infinite;
+      margin: 16px auto 24px auto;
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
     h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 0.5rem;
+      color: #0b3b82;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
     p {
-      font-size: 0.9rem;
-      color: #64748b;
+      color: #516173;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
     }
-    .progress-container {
-      width: 100%;
-      background-color: #f1f5f9;
-      height: 6px;
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 1.5rem 0 1.2rem 0;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background-color: #2563eb;
-      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .fallback-link {
+    .btn-manual {
       display: inline-block;
-      margin-top: 0.5rem;
-      font-size: 0.825rem;
-      color: #2563eb;
+      background-color: #0b3b82;
+      color: #ffffff;
       text-decoration: none;
-      font-weight: 500;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+      box-shadow: 0 4px 10px rgba(11, 59, 130, 0.2);
     }
-    .fallback-link:hover {
-      text-decoration: underline;
+    .btn-manual:hover {
+      background-color: #082a5e;
+    }
+    .footer-brand {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #94a3b8;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="spinner"></div>
-    <h2>Conectando con Portal DECAS</h2>
-    <p>Redirigiendo al sistema de inicio de sesión...</p>
-    
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
+  <div class="card-container">
+    <div class="logo-container">
+      <!-- Logo Vectorial Tecnoflotas -->
+      <svg viewBox="0 0 200 65" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="22" r="18" fill="none" stroke="#0B3B82" stroke-width="2.5"/>
+        <ellipse cx="100" cy="22" rx="9" ry="18" fill="none" stroke="#0B3B82" stroke-width="2"/>
+        <line x1="82" y1="22" x2="118" y2="22" stroke="#0B3B82" stroke-width="2"/>
+        <path d="M 80 46 L 120 46" fill="none" stroke="#E85D22" stroke-width="3.5" stroke-linecap="round"/>
+        <text x="100" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#0B3B82">TECNO<tspan fill="#E85D22">FLOTAS</tspan></text>
+      </svg>
     </div>
 
-    <a href="https://dcdt.davinchi.es/Account/Login" target="_blank" id="manualLink" class="fallback-link">
-      ¿No se ha abierto automáticamente? Haz clic aquí
+    <h2>Acceso al Portal DECAS</h2>
+    <p>Conectando de forma segura. Se abrirá una nueva ventana en unos segundos...</p>
+
+    <div class="spinner-loader"></div>
+
+    <a href="https://dcdt.davinchi.es/Account/Login" target="_blank" rel="noopener noreferrer" class="btn-manual" id="directLink">
+      Abrir Portal Manualmente
     </a>
+
+    <div class="footer-brand">Tecnoflotas Telematics Solutions</div>
   </div>
 
   <script>
-    const TARGET_URL = "https://dcdt.davinchi.es/Account/Login";
+    const TARGET_URL = 'https://dcdt.davinchi.es/Account/Login';
 
-    function executeRedirect() {
-      const progressBar = document.getElementById('progressBar');
-      if (progressBar) {
-        progressBar.style.width = '100%';
-      }
-
-      setTimeout(() => {
-        // Opción recomendada: Abrir en pestaña nueva para evitar bloqueos de iframe
-        window.open(TARGET_URL, '_blank');
-
-        // Si se prefiere reemplazar toda la ventana actual de MyGeotab, usar:
-        // window.top.location.href = TARGET_URL;
-      }, 700);
+    function openPortal() {
+      window.open(TARGET_URL, '_blank', 'noopener,noreferrer');
     }
 
-    // Integración del ciclo de vida del Add-In en MyGeotab
     geotab.addin.portalDecas = function () {
       return {
-        initialize: function (api, state, callback) {
-          callback();
+        initialize: function (api, state, initializeCallback) {
+          document.getElementById('directLink').addEventListener('click', openPortal);
+          initializeCallback();
         },
         focus: function (api, state) {
-          executeRedirect();
+          // Ejecuta la apertura automática al seleccionar la pestaña
+          setTimeout(openPortal, 400);
         },
         blur: function (api, state) {}
       };
