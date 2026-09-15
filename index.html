@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Acceso Davinchi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background-color: #f4f5f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+    }
+    .card {
+      background: #ffffff;
+      padding: 32px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 450px;
+      width: 100%;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-top: 0;
+    }
+    p {
+      color: #5a6578;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .btn-davinchi {
+      background-color: #0056b3;
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .btn-davinchi:hover {
+      background-color: #003d80;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Gestión de DECAS</h2>
+    <p>Para gestionar o crear nuevos DECAS, haz clic en el siguiente botón para acceder al portal externo.</p>
+    <button class="btn-davinchi" id="openDavinchiBtn">Abrir Portal Davinchi</button>
+  </div>
+
+  <script>
+    // Definición estándar del ciclo de vida del Add-in en MyGeotab
+    geotab.addin.davinchiRedirect = function () {
+      return {
+        initialize: function (api, state, initializeCallback) {
+          document.getElementById('openDavinchiBtn').addEventListener('click', function () {
+            window.open('https://dcdt.davinchi.es/Account/Login', '_blank', 'noopener,noreferrer');
+          });
+
+          // Finaliza la inicialización para devolver el control a MyGeotab
+          initializeCallback();
+        },
+        focus: function (api, state) {
+          // Ejecutado cuando la pestaña toma foco
+        },
+        blur: function (api, state) {
+          // Ejecutado cuando el usuario navega fuera de la pestaña
+        }
+      };
+    };
+  </script>
+</body>
+</html>
