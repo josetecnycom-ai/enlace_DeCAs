@@ -2,79 +2,116 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Acceso DECAS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso DECAS - Tecnoflotas</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 40px;
-      background-color: #f4f5f7;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #f4f6f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 80vh;
+    }
+    .main-container {
+      padding: 20px;
+      width: 100%;
+      max-width: 480px;
     }
     .card {
       background: #ffffff;
-      padding: 32px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 40px 32px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e6eb;
       text-align: center;
-      max-width: 450px;
-      width: 100%;
     }
-    h2 {
-      color: #2c3e50;
-      margin-top: 0;
-    }
-    p {
-      color: #5a6578;
-      font-size: 14px;
-      line-height: 1.5;
+    .logo-wrapper {
       margin-bottom: 24px;
     }
-    .btn-davinchi {
-      background-color: #0056b3;
+    .logo-wrapper svg {
+      width: 160px;
+      height: auto;
+    }
+    h2 {
+      color: #0b3b82;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    p {
+      color: #516173;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .btn-decas {
+      background-color: #0b3b82;
       color: #ffffff;
       border: none;
-      padding: 12px 24px;
+      padding: 14px 28px;
       font-size: 15px;
-      font-weight: bold;
-      border-radius: 4px;
+      font-weight: 600;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      width: 100%;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 4px 12px rgba(11, 59, 130, 0.25);
     }
-    .btn-davinchi:hover {
-      background-color: #003d80;
+    .btn-decas:hover {
+      background-color: #082a5e;
+    }
+    .btn-decas:active {
+      transform: scale(0.99);
+    }
+    .footer-text {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #8c9ba5;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>Gestión de DECAS</h2>
-    <p>Para gestionar o crear nuevos DECAS, haz clic en el siguiente botón para acceder al portal externo.</p>
-    <button class="btn-davinchi" id="openDavinchiBtn">Abrir Portal DECAS</button>
+  <div class="main-container">
+    <div class="card">
+      <div class="logo-wrapper">
+        <!-- Logotipo Vectorial Tecnoflotas -->
+        <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="30" r="22" fill="none" stroke="#0B3B82" stroke-width="3"/>
+          <ellipse cx="100" cy="30" rx="11" ry="22" fill="none" stroke="#0B3B82" stroke-width="2.5"/>
+          <line x1="78" y1="30" x2="122" y2="30" stroke="#0B3B82" stroke-width="2.5"/>
+          <path d="M 75 60 L 122 60" fill="none" stroke="#E85D22" stroke-width="4" stroke-linecap="round"/>
+          <text x="100" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="14" fill="#0B3B82">TECNO<tspan fill="#E85D22">FLOTAS</tspan></text>
+        </svg>
+      </div>
+
+      <h2>Gestión de DECAS</h2>
+      <p>Para gestionar o crear nuevos certificados de accidentes, accede directamente al portal de servicios de Tecnoflotas.</p>
+
+      <button class="btn-decas" id="openDecasBtn">Abrir Portal DECAS</button>
+
+      <div class="footer-text">Plataforma Integrada Tecnoflotas</div>
+    </div>
   </div>
 
   <script>
-    // Definición estándar del ciclo de vida del Add-in en MyGeotab
     geotab.addin.davinchiRedirect = function () {
       return {
         initialize: function (api, state, initializeCallback) {
-          document.getElementById('openDavinchiBtn').addEventListener('click', function () {
+          document.getElementById('openDecasBtn').addEventListener('click', function () {
             window.open('https://dcdt.davinchi.es/Account/Login', '_blank', 'noopener,noreferrer');
           });
-
-          // Finaliza la inicialización para devolver el control a MyGeotab
           initializeCallback();
         },
-        focus: function (api, state) {
-          // Ejecutado cuando la pestaña toma foco
-        },
-        blur: function (api, state) {
-          // Ejecutado cuando el usuario navega fuera de la pestaña
-        }
+        focus: function (api, state) {},
+        blur: function (api, state) {}
       };
     };
   </script>
